@@ -152,6 +152,9 @@ img{max-width:100%;height:auto}
 .strip__text{text-align:center;font-size:clamp(1rem,2vw,1.1875rem);color:var(--text-secondary);max-width:52rem;margin-inline:auto}.strip__text strong{color:var(--text-primary);font-weight:600}
 .section-header{margin-bottom:clamp(2rem,5vw,3rem);max-width:40rem}.section-header--center{text-align:center;margin-inline:auto}
 .hero-visual{margin-top:clamp(2rem,5vw,3rem);border-radius:var(--radius-lg);border:1px solid var(--border-subtle);background:#f0f4f8;overflow:hidden;aspect-ratio:16/7;max-height:460px;box-shadow:0 2px 8px rgba(0,0,0,.06)}.hero-visual svg{width:100%;display:block}
+.dashboard-grid{display:grid;gap:1.5rem;grid-template-columns:1fr}@media(min-width:768px){.dashboard-grid{grid-template-columns:1fr 1fr}}
+.dashboard-grid figure{margin:0}.dashboard-grid img{width:100%;border-radius:var(--radius-md);border:1px solid var(--border-subtle);box-shadow:0 2px 12px rgba(0,0,0,.08)}
+.dashboard-grid figcaption{margin-top:.5rem;font-size:.8125rem;color:var(--text-muted);text-align:center}
 .flow{display:flex;flex-direction:column;gap:.75rem}@media(min-width:768px){.flow{flex-direction:row;flex-wrap:wrap;justify-content:center;align-items:stretch;gap:.5rem}}
 .flow__step{flex:1 1 120px;min-width:min(100%,130px);background:var(--bg-card);border:1px solid var(--border-subtle);border-radius:var(--radius-sm);padding:1rem .75rem;text-align:center}
 .flow__step--amber{border-color:rgba(245,158,11,.4)}.flow__step--teal{border-color:var(--border-accent)}
@@ -407,8 +410,29 @@ img{max-width:100%;height:auto}
       </div>
     </section>
 
+    <!-- ═══ DASHBOARD SHOWCASE ═══ -->
+    <section class="section" style="background:var(--bg-elevated)" aria-labelledby="dashboard-heading">
+      <div class="container">
+        <div class="section-header section-header--center reveal">
+          <p class="eyebrow">Real telemetry, real dashboards</p>
+          <h2 id="dashboard-heading" class="headline-lg">Live fleet and sensor observability</h2>
+          <p class="lead" style="margin-inline:auto">Production data from a TrustKern sensor fleet — decrypted and visualized only inside the controlled cloud boundary. The gateway never sees this data in plaintext.</p>
+        </div>
+        <div class="dashboard-grid reveal">
+          <figure>
+            <img src="assets/grafana1.png" alt="Fleet dashboard showing active sensors, message volume, sensor health table, battery levels, and signal strength" loading="lazy">
+            <figcaption>Fleet overview — sensor health, message rates, battery, and signal strength</figcaption>
+          </figure>
+          <figure>
+            <img src="assets/grafana.png" alt="Sensor telemetry dashboard showing temperature, humidity, pressure, gas resistance, air quality index, battery voltage, and Thread link metrics" loading="lazy">
+            <figcaption>Sensor detail — environmental telemetry, power, and Thread link quality</figcaption>
+          </figure>
+        </div>
+      </div>
+    </section>
+
     <!-- ═══ 8. OTA & FLEET LIFECYCLE ═══ -->
-    <section class="section" id="ota" style="background:var(--bg-elevated)" aria-labelledby="ota-heading">
+    <section class="section" id="ota" aria-labelledby="ota-heading">
       <div class="container">
         <div class="section-header reveal">
           <p class="eyebrow">OTA &amp; fleet lifecycle</p>
