@@ -361,6 +361,110 @@ img{max-width:100%;height:auto}
             <p><strong>Cloud ingestion</strong> — Collector verifies signatures again (defense-in-depth), opens HPKE ciphertext, parses sensor JSON payload, persists to TimescaleDB, and updates device lifecycle state.</p>
           </div>
         </div>
+
+        <!-- Architecture poster -->
+        <div class="reveal" style="margin-top:clamp(2.5rem,6vw,4rem)">
+          <p style="text-align:center;font-size:.75rem;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--accent);margin-bottom:.75rem">Trust boundary architecture</p>
+          <div style="border-radius:var(--radius-lg);border:1px solid var(--border-subtle);background:#f7f8fa;overflow:hidden;box-shadow:0 2px 12px rgba(0,0,0,.06)">
+            <svg viewBox="0 0 1060 480" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg" aria-label="TrustKern trust boundary architecture: device boundary with sensor and BLE provisioning, gateway boundary with verify-only relay, decryption boundary with collector and storage" role="img" style="width:100%;height:auto;display:block">
+              <rect width="1060" height="480" fill="#f7f8fa"/>
+
+              <!-- Device trust boundary -->
+              <rect x="30" y="40" width="280" height="400" rx="14" fill="#f0fdf4" stroke="#059669" stroke-width="1.5" opacity=".9"/>
+              <text x="170" y="28" text-anchor="middle" fill="#059669" font-size="10" font-weight="600" font-family="system-ui" letter-spacing=".1em">DEVICE TRUST BOUNDARY</text>
+
+              <!-- Gateway trust boundary -->
+              <rect x="400" y="40" width="220" height="400" rx="14" fill="#fffbeb" stroke="#f59e0b" stroke-width="1.5" stroke-dasharray="6 4" opacity=".9"/>
+              <text x="510" y="28" text-anchor="middle" fill="#d97706" font-size="10" font-weight="600" font-family="system-ui" letter-spacing=".1em">GATEWAY BOUNDARY</text>
+
+              <!-- Decryption trust boundary -->
+              <rect x="710" y="40" width="320" height="400" rx="14" fill="#f0fdf4" stroke="#059669" stroke-width="1.5" opacity=".9"/>
+              <text x="870" y="28" text-anchor="middle" fill="#059669" font-size="10" font-weight="600" font-family="system-ui" letter-spacing=".1em">DECRYPTION BOUNDARY</text>
+
+              <!-- Sensor board -->
+              <rect x="65" y="80" width="210" height="160" rx="10" fill="#fff" stroke="#059669" stroke-width="1"/>
+              <text x="170" y="110" text-anchor="middle" fill="#111827" font-size="13" font-weight="700" font-family="system-ui">Sensor Board</text>
+              <text x="170" y="132" text-anchor="middle" fill="#4b5563" font-size="10" font-family="system-ui">nRF52840 + ATECC608A</text>
+              <text x="170" y="150" text-anchor="middle" fill="#4b5563" font-size="10" font-family="system-ui">BME688 · BMI270</text>
+              <line x1="65" y1="165" x2="275" y2="165" stroke="#e5e7eb" stroke-width="1"/>
+              <text x="170" y="185" text-anchor="middle" fill="#059669" font-size="10" font-weight="600" font-family="system-ui">ECDSA sign (hardware)</text>
+              <text x="170" y="205" text-anchor="middle" fill="#059669" font-size="10" font-weight="600" font-family="system-ui">HPKE encrypt</text>
+              <text x="170" y="225" text-anchor="middle" fill="#6b7280" font-size="9" font-family="system-ui">→ signed CBOR envelope</text>
+
+              <!-- BLE provisioning -->
+              <rect x="80" y="310" width="180" height="70" rx="8" fill="#fff" stroke="#d1d5db" stroke-width="1"/>
+              <text x="170" y="338" text-anchor="middle" fill="#111827" font-size="11" font-weight="600" font-family="system-ui">BLE Provisioning</text>
+              <text x="170" y="358" text-anchor="middle" fill="#6b7280" font-size="9" font-family="system-ui">iOS app · GATT · one-time</text>
+              <text x="170" y="372" text-anchor="middle" fill="#6b7280" font-size="9" font-family="system-ui">BLE disabled after setup</text>
+              <!-- BLE arrow up -->
+              <line x1="170" y1="310" x2="170" y2="245" stroke="#d1d5db" stroke-width="1" stroke-dasharray="4 3"/>
+              <polygon points="166,248 170,240 174,248" fill="#d1d5db"/>
+
+              <!-- Thread mesh link (Device → Gateway) -->
+              <rect x="295" y="140" width="90" height="60" rx="6" fill="#fff" stroke="#d1d5db" stroke-width="1"/>
+              <text x="340" y="167" text-anchor="middle" fill="#4b5563" font-size="10" font-weight="600" font-family="system-ui">Thread</text>
+              <text x="340" y="183" text-anchor="middle" fill="#6b7280" font-size="9" font-family="system-ui">802.15.4</text>
+              <!-- Arrow Sensor → Thread -->
+              <line x1="275" y1="170" x2="295" y2="170" stroke="#059669" stroke-width="1.5"/>
+              <polygon points="292,166 298,170 292,174" fill="#059669"/>
+              <!-- Arrow Thread → Gateway -->
+              <line x1="385" y1="170" x2="420" y2="170" stroke="#059669" stroke-width="1.5"/>
+              <polygon points="417,166 423,170 417,174" fill="#059669"/>
+
+              <!-- Ciphertext label on flow -->
+              <rect x="305" y="210" width="80" height="22" rx="4" fill="#f3f4f6" stroke="#d1d5db" stroke-width=".5"/>
+              <text x="345" y="225" text-anchor="middle" fill="#6b7280" font-size="8" font-weight="600" font-family="system-ui" letter-spacing=".05em">CIPHERTEXT</text>
+
+              <!-- Gateway -->
+              <rect x="425" y="90" width="170" height="200" rx="10" fill="#fff" stroke="#f59e0b" stroke-width="1" stroke-dasharray="5 3"/>
+              <text x="510" y="122" text-anchor="middle" fill="#111827" font-size="13" font-weight="700" font-family="system-ui">Gateway</text>
+              <text x="510" y="144" text-anchor="middle" fill="#4b5563" font-size="10" font-family="system-ui">Raspberry Pi + OTBR</text>
+              <text x="510" y="162" text-anchor="middle" fill="#4b5563" font-size="10" font-family="system-ui">tk-gateway</text>
+              <line x1="425" y1="175" x2="595" y2="175" stroke="#fde68a" stroke-width="1"/>
+              <text x="510" y="198" text-anchor="middle" fill="#d97706" font-size="10" font-weight="600" font-family="system-ui">Verify signature</text>
+              <text x="510" y="218" text-anchor="middle" fill="#d97706" font-size="10" font-weight="600" font-family="system-ui">Anti-replay check</text>
+              <text x="510" y="245" text-anchor="middle" fill="#92400e" font-size="11" font-weight="700" font-family="system-ui">NO DECRYPT</text>
+              <text x="510" y="265" text-anchor="middle" fill="#6b7280" font-size="9" font-family="system-ui">Forward raw envelope</text>
+
+              <!-- MQTTS link (Gateway → Cloud) -->
+              <line x1="595" y1="190" x2="730" y2="190" stroke="#059669" stroke-width="1.5"/>
+              <polygon points="727,186 733,190 727,194" fill="#059669"/>
+              <rect x="630" y="170" width="70" height="22" rx="4" fill="#f3f4f6" stroke="#d1d5db" stroke-width=".5"/>
+              <text x="665" y="185" text-anchor="middle" fill="#6b7280" font-size="8" font-weight="600" font-family="system-ui" letter-spacing=".05em">MQTTS mTLS</text>
+              <!-- Ciphertext label -->
+              <rect x="630" y="198" width="70" height="18" rx="4" fill="#f3f4f6" stroke="#d1d5db" stroke-width=".5"/>
+              <text x="665" y="211" text-anchor="middle" fill="#6b7280" font-size="7.5" font-weight="600" font-family="system-ui" letter-spacing=".05em">CIPHERTEXT</text>
+
+              <!-- Collector -->
+              <rect x="740" y="80" width="260" height="180" rx="10" fill="#fff" stroke="#059669" stroke-width="1"/>
+              <text x="870" y="110" text-anchor="middle" fill="#111827" font-size="13" font-weight="700" font-family="system-ui">Collector</text>
+              <text x="870" y="132" text-anchor="middle" fill="#4b5563" font-size="10" font-family="system-ui">Verify sig (again) · dedup</text>
+              <text x="870" y="150" text-anchor="middle" fill="#4b5563" font-size="10" font-family="system-ui">Anti-replay (independent)</text>
+              <line x1="740" y1="163" x2="1000" y2="163" stroke="#e5e7eb" stroke-width="1"/>
+              <text x="870" y="183" text-anchor="middle" fill="#059669" font-size="11" font-weight="700" font-family="system-ui">HPKE decrypt → plaintext</text>
+              <text x="870" y="205" text-anchor="middle" fill="#4b5563" font-size="10" font-family="system-ui">Parse sensor JSON payload</text>
+              <text x="870" y="225" text-anchor="middle" fill="#4b5563" font-size="10" font-family="system-ui">Persist to TimescaleDB</text>
+              <text x="870" y="245" text-anchor="middle" fill="#6b7280" font-size="9" font-family="system-ui">Update device lifecycle state</text>
+
+              <!-- Plaintext label -->
+              <rect x="820" y="268" width="100" height="24" rx="5" fill="#059669" stroke="none"/>
+              <text x="870" y="284" text-anchor="middle" fill="#fff" font-size="9" font-weight="700" font-family="system-ui" letter-spacing=".06em">PLAINTEXT HERE</text>
+
+              <!-- Storage -->
+              <rect x="775" y="320" width="190" height="60" rx="8" fill="#fff" stroke="#d1d5db" stroke-width="1"/>
+              <text x="870" y="348" text-anchor="middle" fill="#111827" font-size="11" font-weight="600" font-family="system-ui">TimescaleDB · Grafana</text>
+              <text x="870" y="366" text-anchor="middle" fill="#6b7280" font-size="9" font-family="system-ui">Prometheus · Loki · step-ca</text>
+              <!-- Arrow collector → storage -->
+              <line x1="870" y1="260" x2="870" y2="320" stroke="#059669" stroke-width="1"/>
+              <polygon points="866,317 870,323 874,317" fill="#059669"/>
+
+              <!-- Key insight footer -->
+              <rect x="30" y="445" width="1000" height="1" fill="#e5e7eb"/>
+              <text x="530" y="470" text-anchor="middle" fill="#4b5563" font-size="10" font-family="system-ui">Plaintext appears only inside the decryption boundary — never at the gateway, never at the edge, never in transit.</text>
+            </svg>
+          </div>
+          <p style="text-align:center;margin-top:.75rem;font-size:.8125rem;color:var(--text-muted)">TrustKern trust boundary architecture — three boundaries, one controlled decryption point.</p>
+        </div>
       </div>
     </section>
 
@@ -394,6 +498,142 @@ img{max-width:100%;height:auto}
           <article class="card reveal"><h3>Minimized intermediary trust</h3><p>The gateway relays and verifies, but does not become a plaintext processing point. Fewer systems with access to sensitive data means a smaller operational, contractual, and jurisdictional footprint.</p></article>
           <article class="card reveal"><h3>Controlled decryption boundary</h3><p>Plaintext appears only in a cloud-side boundary selected by the deployment model. Decryption scope can be aligned with audit, data residency, and contractual requirements.</p></article>
           <article class="card reveal"><h3>Flexible hosting posture</h3><p>Suitable for EU-hosted, customer-controlled, or self-hosted environments. The core trust model does not change when the hosting model changes.</p></article>
+        </div>
+
+        <!-- Sovereignty deployment diagram -->
+        <div class="reveal" style="margin-top:clamp(2rem,5vw,3rem)">
+          <p style="text-align:center;font-size:.75rem;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--accent);margin-bottom:.75rem">Deployment models</p>
+          <div style="border-radius:var(--radius-lg);border:1px solid var(--border-subtle);background:#f7f8fa;overflow:hidden;box-shadow:0 2px 8px rgba(0,0,0,.05)">
+            <svg viewBox="0 0 1060 520" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Three sovereignty deployment models: EU-hosted, customer-controlled, and self-hosted — showing where collector runs, where decryption happens, and who controls the environment" style="width:100%;height:auto;display:block">
+              <rect width="1060" height="520" fill="#f7f8fa"/>
+
+              <!-- Shared: Gateway stays the same -->
+              <text x="530" y="30" text-anchor="middle" fill="#111827" font-size="13" font-weight="700" font-family="system-ui">Gateway is always outside the confidentiality boundary — only the decryption location changes</text>
+
+              <!-- Shared gateway row -->
+              <rect x="370" y="48" width="320" height="36" rx="6" fill="#fffbeb" stroke="#f59e0b" stroke-width="1" stroke-dasharray="5 3"/>
+              <text x="530" y="72" text-anchor="middle" fill="#92400e" font-size="10" font-weight="600" font-family="system-ui">Edge gateway — verify, relay, NO DECRYPT — same in all models</text>
+
+              <!-- ─── EU-HOSTED ─── -->
+              <rect x="30" y="110" width="320" height="380" rx="12" fill="#fff" stroke="#059669" stroke-width="1.5"/>
+              <rect x="30" y="110" width="320" height="44" rx="12" fill="#059669" stroke="none"/>
+              <rect x="30" y="140" width="320" height="14" fill="#059669" stroke="none"/>
+              <text x="190" y="138" text-anchor="middle" fill="#fff" font-size="13" font-weight="700" font-family="system-ui">EU-hosted</text>
+
+              <!-- EU flag hint -->
+              <rect x="52" y="170" width="24" height="16" rx="2" fill="#003399"/>
+              <circle cx="64" cy="178" r="4" fill="#FFCC00" stroke="none"/>
+              <text x="86" y="182" fill="#059669" font-size="10" font-weight="600" font-family="system-ui">European infrastructure</text>
+
+              <text x="50" y="210" fill="#111827" font-size="11" font-weight="600" font-family="system-ui">Collector</text>
+              <text x="50" y="228" fill="#4b5563" font-size="9.5" font-family="system-ui">Runs in EU-located data center</text>
+              <text x="50" y="244" fill="#4b5563" font-size="9.5" font-family="system-ui">Managed by TrustKern or partner</text>
+
+              <line x1="50" y1="258" x2="330" y2="258" stroke="#e5e7eb" stroke-width="1"/>
+
+              <text x="50" y="278" fill="#111827" font-size="11" font-weight="600" font-family="system-ui">Decryption</text>
+              <text x="50" y="296" fill="#059669" font-size="9.5" font-weight="600" font-family="system-ui">Inside EU-hosted boundary</text>
+              <text x="50" y="312" fill="#4b5563" font-size="9.5" font-family="system-ui">HPKE keys in EU infrastructure</text>
+
+              <line x1="50" y1="326" x2="330" y2="326" stroke="#e5e7eb" stroke-width="1"/>
+
+              <text x="50" y="346" fill="#111827" font-size="11" font-weight="600" font-family="system-ui">Control</text>
+              <text x="50" y="364" fill="#4b5563" font-size="9.5" font-family="system-ui">TrustKern operates under contract</text>
+              <text x="50" y="380" fill="#4b5563" font-size="9.5" font-family="system-ui">Customer defines data boundaries</text>
+
+              <line x1="50" y1="394" x2="330" y2="394" stroke="#e5e7eb" stroke-width="1"/>
+
+              <text x="50" y="414" fill="#111827" font-size="11" font-weight="600" font-family="system-ui">Best for</text>
+              <text x="50" y="432" fill="#6b7280" font-size="9.5" font-family="system-ui">Regulated manufacturers, utilities,</text>
+              <text x="50" y="448" fill="#6b7280" font-size="9.5" font-family="system-ui">and enterprises needing EU residency</text>
+
+              <!-- Decryption icon -->
+              <rect x="262" y="270" width="70" height="26" rx="5" fill="#059669"/>
+              <text x="297" y="287" text-anchor="middle" fill="#fff" font-size="8" font-weight="700" font-family="system-ui">DECRYPT</text>
+
+              <!-- ─── CUSTOMER-CONTROLLED ─── -->
+              <rect x="370" y="110" width="320" height="380" rx="12" fill="#fff" stroke="#059669" stroke-width="1.5"/>
+              <rect x="370" y="110" width="320" height="44" rx="12" fill="#059669" stroke="none"/>
+              <rect x="370" y="140" width="320" height="14" fill="#059669" stroke="none"/>
+              <text x="530" y="138" text-anchor="middle" fill="#fff" font-size="13" font-weight="700" font-family="system-ui">Customer-controlled</text>
+
+              <!-- Building icon hint -->
+              <rect x="392" y="170" width="20" height="16" rx="2" fill="#e5e7eb"/>
+              <rect x="395" y="173" width="4" height="4" rx="1" fill="#6b7280"/>
+              <rect x="401" y="173" width="4" height="4" rx="1" fill="#6b7280"/>
+              <rect x="395" y="179" width="4" height="4" rx="1" fill="#6b7280"/>
+              <rect x="401" y="179" width="4" height="4" rx="1" fill="#6b7280"/>
+              <text x="420" y="182" fill="#059669" font-size="10" font-weight="600" font-family="system-ui">Customer's own cloud account</text>
+
+              <text x="390" y="210" fill="#111827" font-size="11" font-weight="600" font-family="system-ui">Collector</text>
+              <text x="390" y="228" fill="#4b5563" font-size="9.5" font-family="system-ui">Runs in customer's cloud tenant</text>
+              <text x="390" y="244" fill="#4b5563" font-size="9.5" font-family="system-ui">Customer provisions infrastructure</text>
+
+              <line x1="390" y1="258" x2="670" y2="258" stroke="#e5e7eb" stroke-width="1"/>
+
+              <text x="390" y="278" fill="#111827" font-size="11" font-weight="600" font-family="system-ui">Decryption</text>
+              <text x="390" y="296" fill="#059669" font-size="9.5" font-weight="600" font-family="system-ui">Inside customer-controlled boundary</text>
+              <text x="390" y="312" fill="#4b5563" font-size="9.5" font-family="system-ui">HPKE keys never leave tenant</text>
+
+              <line x1="390" y1="326" x2="670" y2="326" stroke="#e5e7eb" stroke-width="1"/>
+
+              <text x="390" y="346" fill="#111827" font-size="11" font-weight="600" font-family="system-ui">Control</text>
+              <text x="390" y="364" fill="#4b5563" font-size="9.5" font-family="system-ui">Customer owns and operates</text>
+              <text x="390" y="380" fill="#4b5563" font-size="9.5" font-family="system-ui">TrustKern supports setup + updates</text>
+
+              <line x1="390" y1="394" x2="670" y2="394" stroke="#e5e7eb" stroke-width="1"/>
+
+              <text x="390" y="414" fill="#111827" font-size="11" font-weight="600" font-family="system-ui">Best for</text>
+              <text x="390" y="432" fill="#6b7280" font-size="9.5" font-family="system-ui">Platform teams, critical infrastructure,</text>
+              <text x="390" y="448" fill="#6b7280" font-size="9.5" font-family="system-ui">and organizations with existing cloud</text>
+
+              <!-- Decryption icon -->
+              <rect x="602" y="270" width="70" height="26" rx="5" fill="#059669"/>
+              <text x="637" y="287" text-anchor="middle" fill="#fff" font-size="8" font-weight="700" font-family="system-ui">DECRYPT</text>
+
+              <!-- ─── SELF-HOSTED ─── -->
+              <rect x="710" y="110" width="320" height="380" rx="12" fill="#fff" stroke="#059669" stroke-width="1.5"/>
+              <rect x="710" y="110" width="320" height="44" rx="12" fill="#059669" stroke="none"/>
+              <rect x="710" y="140" width="320" height="14" fill="#059669" stroke="none"/>
+              <text x="870" y="138" text-anchor="middle" fill="#fff" font-size="13" font-weight="700" font-family="system-ui">Self-hosted</text>
+
+              <!-- Lock icon hint -->
+              <rect x="732" y="170" width="20" height="14" rx="2" fill="#e5e7eb"/>
+              <rect x="737" y="163" width="10" height="10" rx="5" fill="none" stroke="#6b7280" stroke-width="1.5"/>
+              <text x="760" y="182" fill="#059669" font-size="10" font-weight="600" font-family="system-ui">Private / air-gapped environment</text>
+
+              <text x="730" y="210" fill="#111827" font-size="11" font-weight="600" font-family="system-ui">Collector</text>
+              <text x="730" y="228" fill="#4b5563" font-size="9.5" font-family="system-ui">On-premise or private cloud</text>
+              <text x="730" y="244" fill="#4b5563" font-size="9.5" font-family="system-ui">Air-gapped or restricted network</text>
+
+              <line x1="730" y1="258" x2="1010" y2="258" stroke="#e5e7eb" stroke-width="1"/>
+
+              <text x="730" y="278" fill="#111827" font-size="11" font-weight="600" font-family="system-ui">Decryption</text>
+              <text x="730" y="296" fill="#059669" font-size="9.5" font-weight="600" font-family="system-ui">Inside private boundary</text>
+              <text x="730" y="312" fill="#4b5563" font-size="9.5" font-family="system-ui">Full isolation from external access</text>
+
+              <line x1="730" y1="326" x2="1010" y2="326" stroke="#e5e7eb" stroke-width="1"/>
+
+              <text x="730" y="346" fill="#111827" font-size="11" font-weight="600" font-family="system-ui">Control</text>
+              <text x="730" y="364" fill="#4b5563" font-size="9.5" font-family="system-ui">Full customer ownership</text>
+              <text x="730" y="380" fill="#4b5563" font-size="9.5" font-family="system-ui">No external operator access</text>
+
+              <line x1="730" y1="394" x2="1010" y2="394" stroke="#e5e7eb" stroke-width="1"/>
+
+              <text x="730" y="414" fill="#111827" font-size="11" font-weight="600" font-family="system-ui">Best for</text>
+              <text x="730" y="432" fill="#6b7280" font-size="9.5" font-family="system-ui">Defense-adjacent, high-assurance,</text>
+              <text x="730" y="448" fill="#6b7280" font-size="9.5" font-family="system-ui">and tightly governed environments</text>
+
+              <!-- Decryption icon -->
+              <rect x="942" y="270" width="70" height="26" rx="5" fill="#059669"/>
+              <text x="977" y="287" text-anchor="middle" fill="#fff" font-size="8" font-weight="700" font-family="system-ui">DECRYPT</text>
+
+              <!-- Footer note -->
+              <rect x="30" y="498" width="1000" height="1" fill="#e5e7eb"/>
+              <text x="530" y="515" text-anchor="middle" fill="#4b5563" font-size="10" font-family="system-ui">The gateway never changes. The trust model never changes. Only the hosting model changes.</text>
+            </svg>
+          </div>
+          <p style="text-align:center;margin-top:.75rem;font-size:.8125rem;color:var(--text-muted)">Three deployment postures, one trust model — decryption always stays inside the boundary you choose.</p>
         </div>
       </div>
     </section>
@@ -487,6 +727,121 @@ img{max-width:100%;height:auto}
           <article class="card reveal"><h3>Signed firmware delivery</h3><p>ECDSA-P256 signed images. Separate production and development signing keys. Unsigned images rejected by MCUboot before execution.</p></article>
           <article class="card reveal"><h3>Staged rollouts</h3><p>Lab → production rings with per-device status tracking. Auto-pause on failure thresholds. Operator-controlled promotion between rings.</p></article>
           <article class="card reveal"><h3>Per-device lifecycle</h3><p>Backend tracks firmware version, rollout state, boot history, and health per sensor. Gateway drives MCUmgr upload over Thread. Collector updates status from OTA events.</p></article>
+        </div>
+
+        <!-- OTA rollout flow diagram -->
+        <div class="reveal" style="margin-top:clamp(2rem,5vw,3rem)">
+          <p style="text-align:center;font-size:.75rem;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--accent);margin-bottom:.75rem">Rollout lifecycle</p>
+          <div style="border-radius:var(--radius-lg);border:1px solid var(--border-subtle);background:#f7f8fa;overflow:hidden;box-shadow:0 2px 8px rgba(0,0,0,.05)">
+            <svg viewBox="0 0 960 380" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="OTA rollout lifecycle: upload signed image, gateway delivers via MCUmgr, test boot, health check, confirm or rollback" style="width:100%;height:auto;display:block">
+              <rect width="960" height="380" fill="#f7f8fa"/>
+
+              <!-- Title -->
+              <text x="480" y="30" text-anchor="middle" fill="#111827" font-size="13" font-weight="700" font-family="system-ui">Firmware update lifecycle — per device</text>
+
+              <!-- Step 1: Upload -->
+              <rect x="40" y="60" width="140" height="90" rx="8" fill="#fff" stroke="#059669" stroke-width="1.5"/>
+              <text x="110" y="88" text-anchor="middle" fill="#059669" font-size="9" font-weight="600" font-family="system-ui" letter-spacing=".08em">01</text>
+              <text x="110" y="108" text-anchor="middle" fill="#111827" font-size="11" font-weight="700" font-family="system-ui">Upload image</text>
+              <text x="110" y="126" text-anchor="middle" fill="#6b7280" font-size="9" font-family="system-ui">ECDSA-P256 signed</text>
+              <text x="110" y="140" text-anchor="middle" fill="#6b7280" font-size="9" font-family="system-ui">MCUmgr over Thread</text>
+
+              <!-- Arrow 1→2 -->
+              <line x1="180" y1="105" x2="220" y2="105" stroke="#059669" stroke-width="1.5"/>
+              <polygon points="217,101 223,105 217,109" fill="#059669"/>
+
+              <!-- Step 2: Test boot -->
+              <rect x="225" y="60" width="140" height="90" rx="8" fill="#fff" stroke="#059669" stroke-width="1.5"/>
+              <text x="295" y="88" text-anchor="middle" fill="#059669" font-size="9" font-weight="600" font-family="system-ui" letter-spacing=".08em">02</text>
+              <text x="295" y="108" text-anchor="middle" fill="#111827" font-size="11" font-weight="700" font-family="system-ui">Test boot</text>
+              <text x="295" y="126" text-anchor="middle" fill="#6b7280" font-size="9" font-family="system-ui">MCUboot swaps slots</text>
+              <text x="295" y="140" text-anchor="middle" fill="#6b7280" font-size="9" font-family="system-ui">New image in test mode</text>
+
+              <!-- Arrow 2→3 -->
+              <line x1="365" y1="105" x2="405" y2="105" stroke="#059669" stroke-width="1.5"/>
+              <polygon points="402,101 408,105 402,109" fill="#059669"/>
+
+              <!-- Step 3: Health check -->
+              <rect x="410" y="60" width="140" height="90" rx="8" fill="#fff" stroke="#f59e0b" stroke-width="1.5"/>
+              <text x="480" y="88" text-anchor="middle" fill="#d97706" font-size="9" font-weight="600" font-family="system-ui" letter-spacing=".08em">03</text>
+              <text x="480" y="108" text-anchor="middle" fill="#111827" font-size="11" font-weight="700" font-family="system-ui">Health check</text>
+              <text x="480" y="126" text-anchor="middle" fill="#6b7280" font-size="9" font-family="system-ui">Telemetry flowing?</text>
+              <text x="480" y="140" text-anchor="middle" fill="#6b7280" font-size="9" font-family="system-ui">Sensors responding?</text>
+
+              <!-- Branch: healthy → confirm -->
+              <line x1="550" y1="90" x2="600" y2="90" stroke="#059669" stroke-width="1.5"/>
+              <polygon points="597,86 603,90 597,94" fill="#059669"/>
+              <text x="575" y="82" text-anchor="middle" fill="#059669" font-size="8" font-weight="600" font-family="system-ui">HEALTHY</text>
+
+              <!-- Step 4a: Confirm -->
+              <rect x="605" y="55" width="140" height="70" rx="8" fill="#f0fdf4" stroke="#059669" stroke-width="1.5"/>
+              <text x="675" y="80" text-anchor="middle" fill="#059669" font-size="9" font-weight="600" font-family="system-ui" letter-spacing=".08em">04</text>
+              <text x="675" y="98" text-anchor="middle" fill="#059669" font-size="11" font-weight="700" font-family="system-ui">Confirm</text>
+              <text x="675" y="115" text-anchor="middle" fill="#059669" font-size="9" font-family="system-ui">Image marked permanent</text>
+
+              <!-- Arrow confirm → done -->
+              <line x1="745" y1="90" x2="785" y2="90" stroke="#059669" stroke-width="1.5"/>
+              <polygon points="782,86 788,90 782,94" fill="#059669"/>
+
+              <!-- Done -->
+              <rect x="790" y="65" width="130" height="50" rx="25" fill="#059669" stroke="none"/>
+              <text x="855" y="95" text-anchor="middle" fill="#fff" font-size="11" font-weight="700" font-family="system-ui">RUNNING v0.2.1</text>
+
+              <!-- Branch: unhealthy → rollback -->
+              <line x1="480" y1="150" x2="480" y2="185" stroke="#dc2626" stroke-width="1.5"/>
+              <polygon points="476,182 480,188 484,182" fill="#dc2626"/>
+              <text x="505" y="175" text-anchor="start" fill="#dc2626" font-size="8" font-weight="600" font-family="system-ui">UNHEALTHY</text>
+
+              <!-- Step 4b: Rollback -->
+              <rect x="410" y="190" width="140" height="70" rx="8" fill="#fef2f2" stroke="#dc2626" stroke-width="1.5"/>
+              <text x="480" y="215" text-anchor="middle" fill="#dc2626" font-size="9" font-weight="600" font-family="system-ui" letter-spacing=".08em">REVERT</text>
+              <text x="480" y="233" text-anchor="middle" fill="#dc2626" font-size="11" font-weight="700" font-family="system-ui">Auto rollback</text>
+              <text x="480" y="250" text-anchor="middle" fill="#6b7280" font-size="9" font-family="system-ui">MCUboot reverts to slot 0</text>
+
+              <!-- Arrow rollback → previous -->
+              <line x1="550" y1="225" x2="790" y2="225" stroke="#dc2626" stroke-width="1" stroke-dasharray="5 3"/>
+              <polygon points="787,221 793,225 787,229" fill="#dc2626"/>
+
+              <!-- Previous version -->
+              <rect x="795" y="200" width="125" height="50" rx="25" fill="#6b7280" stroke="none"/>
+              <text x="857" y="230" text-anchor="middle" fill="#fff" font-size="11" font-weight="700" font-family="system-ui">RUNNING v0.2.0</text>
+
+              <!-- Staged rollout section -->
+              <line x1="40" y1="285" x2="920" y2="285" stroke="#e5e7eb" stroke-width="1"/>
+              <text x="480" y="310" text-anchor="middle" fill="#111827" font-size="12" font-weight="700" font-family="system-ui">Staged fleet rollout</text>
+
+              <!-- Ring 1: Lab -->
+              <rect x="60" y="325" width="170" height="40" rx="6" fill="#f0fdf4" stroke="#059669" stroke-width="1"/>
+              <text x="145" y="350" text-anchor="middle" fill="#059669" font-size="10" font-weight="600" font-family="system-ui">Lab ring · 2 devices</text>
+              <!-- Arrow -->
+              <line x1="230" y1="345" x2="270" y2="345" stroke="#059669" stroke-width="1.5"/>
+              <polygon points="267,341 273,345 267,349" fill="#059669"/>
+              <text x="250" y="337" text-anchor="middle" fill="#6b7280" font-size="7" font-family="system-ui">pass</text>
+
+              <!-- Ring 2: Canary -->
+              <rect x="275" y="325" width="170" height="40" rx="6" fill="#fffbeb" stroke="#f59e0b" stroke-width="1"/>
+              <text x="360" y="350" text-anchor="middle" fill="#d97706" font-size="10" font-weight="600" font-family="system-ui">Canary · 10% fleet</text>
+              <!-- Arrow -->
+              <line x1="445" y1="345" x2="485" y2="345" stroke="#059669" stroke-width="1.5"/>
+              <polygon points="482,341 488,345 482,349" fill="#059669"/>
+              <text x="465" y="337" text-anchor="middle" fill="#6b7280" font-size="7" font-family="system-ui">pass</text>
+
+              <!-- Ring 3: Production -->
+              <rect x="490" y="325" width="190" height="40" rx="6" fill="#f0fdf4" stroke="#059669" stroke-width="1"/>
+              <text x="585" y="350" text-anchor="middle" fill="#059669" font-size="10" font-weight="600" font-family="system-ui">Production · full fleet</text>
+              <!-- Arrow -->
+              <line x1="680" y1="345" x2="720" y2="345" stroke="#059669" stroke-width="1.5"/>
+              <polygon points="717,341 723,345 717,349" fill="#059669"/>
+
+              <!-- Complete -->
+              <rect x="725" y="330" width="130" height="30" rx="15" fill="#059669" stroke="none"/>
+              <text x="790" y="350" text-anchor="middle" fill="#fff" font-size="9" font-weight="700" font-family="system-ui">ROLLOUT COMPLETE</text>
+
+              <!-- Auto-pause note -->
+              <text x="360" y="375" text-anchor="middle" fill="#dc2626" font-size="8" font-family="system-ui">↑ auto-pause on failure threshold</text>
+            </svg>
+          </div>
+          <p style="text-align:center;margin-top:.75rem;font-size:.8125rem;color:var(--text-muted)">Health-gated confirmation per device, staged rollout across fleet rings. Auto-pause and rollback on failure.</p>
         </div>
       </div>
     </section>
