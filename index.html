@@ -88,27 +88,6 @@
   <style>
 :root{--bg-deep:#ffffff;--bg-elevated:#f8f9fa;--bg-card:#ffffff;--bg-card-hover:#f0f2f5;--border-subtle:rgba(0,0,0,.08);--border-accent:rgba(5,150,105,.2);--text-primary:#111827;--text-secondary:#4b5563;--text-muted:#6b7280;--accent:#059669;--accent-dim:#047857;--accent-glow:rgba(5,150,105,.06);--accent-line:rgba(5,150,105,.25);--amber:#f59e0b;--font-sans:"DM Sans",system-ui,-apple-system,sans-serif;--font-display:"Outfit",var(--font-sans);--space-sm:1rem;--space-lg:2.5rem;--space-section:clamp(4rem,12vw,7rem);--radius-sm:6px;--radius-md:12px;--radius-lg:16px;--max-content:72rem;--header-h:4rem;--ease-out:cubic-bezier(.22,1,.36,1)}
 
-:root{
-  --bg-deep:#ffffff;
-  --bg-elevated:#f8f9fa;
-  --bg-card:#ffffff;
-  --bg-card-hover:#f0f2f5;
-
-  --text-primary:#111827;
-  --text-secondary:#4b5563;
-  --text-muted:#6b7280;
-
-  --brand-blue:#0047AB;
-  --brand-blue-dark:#003a8c;
-  --trust-green:#059669;
-  --trust-green-dark:#047857;
-  --amber:#F59E0B;
-
-  --border-subtle:rgba(0,0,0,.08);
-  --border-blue:rgba(0,71,171,.16);
-  --border-green:rgba(5,150,105,.18);
-  --green-glow:rgba(5,150,105,.06);
-}
 @media(prefers-reduced-motion:reduce){:root{--duration-fast:0.01ms;--duration-normal:0.01ms}}
 *,*::before,*::after{box-sizing:border-box}
 html{scroll-behavior:smooth}
@@ -182,6 +161,14 @@ img{max-width:100%;height:auto}
 .tb--cloud{border-color:var(--accent)}.tb--cloud::before{color:var(--accent)}
 .tb-grid{display:grid;gap:1.25rem;grid-template-columns:1fr}@media(min-width:768px){.tb-grid{grid-template-columns:1fr 1fr 1fr}}
 .tb p{margin:0;font-size:.875rem;color:var(--text-muted);line-height:1.6}.tb strong{color:var(--text-primary);font-weight:600}
+.compare{display:grid;gap:1.5rem;grid-template-columns:1fr}@media(min-width:768px){.compare{grid-template-columns:1fr 1fr}}
+.compare__col{border:1px solid var(--border-subtle);border-radius:var(--radius-md);padding:1.75rem;background:var(--bg-card)}
+.compare__col--highlight{border-color:var(--accent);background:rgba(5,150,105,.03)}
+.compare__col h3{font-size:1rem;margin:0 0 1rem}.compare__col ul{list-style:none;padding:0;margin:0}.compare__col li{padding:.4rem 0;font-size:.9375rem;color:var(--text-muted);display:flex;align-items:baseline;gap:.5rem}.compare__col li::before{content:"";flex-shrink:0;width:6px;height:6px;border-radius:50%;margin-top:.45em}
+.compare__col:not(.compare__col--highlight) li::before{background:#d1d5db}
+.compare__col--highlight li::before{background:var(--accent)}
+.badge-row{display:flex;flex-wrap:wrap;gap:.5rem;margin-top:1.25rem}
+.badge{display:inline-flex;align-items:center;gap:.35rem;padding:.3rem .7rem;font-size:.75rem;font-weight:600;letter-spacing:.02em;color:var(--accent);background:var(--accent-glow);border:1px solid var(--accent-line);border-radius:100px}
   </style>
 </head>
 <body>
@@ -192,6 +179,7 @@ img{max-width:100%;height:auto}
       <a class="logo" href="#"><img class="logo__mark" src="assets/logo-512.png" alt="" width="30" height="30">Trust<span>kern</span></a>
       <nav class="nav" aria-label="Primary">
         <a href="#architecture">Architecture</a>
+        <a href="#sovereignty">Sovereignty</a>
         <a href="#industries">Use cases</a>
         <a href="#security">Security</a>
         <a href="#contact">Contact</a>
@@ -200,7 +188,7 @@ img{max-width:100%;height:auto}
       <button type="button" class="menu-toggle" aria-expanded="false" aria-controls="mobile-menu" aria-label="Open menu"><span></span><span></span><span></span></button>
     </div>
     <nav id="mobile-menu" class="mobile-nav" aria-label="Mobile">
-      <a href="#architecture">Architecture</a><a href="#industries">Use cases</a><a href="#security">Security</a><a href="#contact">Contact</a>
+      <a href="#architecture">Architecture</a><a href="#sovereignty">Sovereignty</a><a href="#industries">Use cases</a><a href="#security">Security</a><a href="#contact">Contact</a>
       <a class="btn btn--primary" href="#contact" style="margin-top:1rem;text-align:center">Book a demo</a>
     </nav>
   </header>
@@ -212,12 +200,17 @@ img{max-width:100%;height:auto}
       <div class="container">
         <p class="eyebrow reveal">nRF52840 · ATECC608A · Thread · HPKE · MCUboot</p>
         <h1 id="hero-heading" class="headline-xl reveal">Hardware-rooted, gateway-blind industrial IoT security</h1>
-        <p class="lead reveal" style="margin-top:1.25rem">Telemetry is signed in secure hardware and encrypted on the sensor before it enters the network. The gateway verifies and forwards, but cannot decrypt. Plaintext appears only inside the controlled cloud ingestion boundary.</p>
+        <p class="lead reveal" style="margin-top:1.25rem">Telemetry is signed in secure hardware and encrypted on the sensor before it enters the network. The gateway verifies and forwards, but cannot decrypt. Plaintext appears only inside a controlled cloud boundary that can be deployed in European or customer-controlled environments.</p>
         <div class="reveal" style="margin-top:1.75rem;display:flex;flex-wrap:wrap;gap:1rem">
           <a class="btn btn--primary btn--lg" href="#contact">Book a demo</a>
           <a class="btn btn--ghost btn--lg" href="#architecture">See architecture</a>
         </div>
-        <p class="reveal" style="margin-top:1rem;font-size:.8125rem;color:var(--text-muted);letter-spacing:.04em">Secure infrastructure for industrial IoT, from device to cloud.</p>
+        <div class="badge-row reveal">
+          <span class="badge">Gateway-blind</span>
+          <span class="badge">Customer-controlled decryption boundary</span>
+          <span class="badge">EU-hosted or self-hosted</span>
+          <span class="badge">Hardware-rooted identity</span>
+        </div>
         <div class="hero-visual reveal" role="img" aria-label="Architecture: sensor with ATECC608A signs and encrypts, provisioned over BLE, telemetry over Thread mesh, gateway verifies but cannot decrypt, MQTTS to collector which decrypts and stores">
           <svg viewBox="0 0 960 340" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
             <defs>
@@ -292,7 +285,7 @@ img{max-width:100%;height:auto}
     <section class="section--tight strip" aria-labelledby="strip-heading">
       <div class="container">
         <h2 id="strip-heading" class="sr-only">Trust statement</h2>
-        <p class="strip__text reveal"><strong>End-to-end means the gateway is outside the confidentiality boundary.</strong> Signing keys live in the ATECC608A. Decryption keys live in the cloud. The gateway holds no device private keys and no payload decryption keys.</p>
+        <p class="strip__text reveal"><strong>End-to-end means the gateway is outside the confidentiality boundary</strong> — and decryption stays inside infrastructure you control.</p>
       </div>
     </section>
 
@@ -302,7 +295,7 @@ img{max-width:100%;height:auto}
         <div class="section-header reveal">
           <p class="eyebrow">The problem</p>
           <h2 id="problem-heading" class="headline-lg">Gateways that decrypt are accidental trust concentration points</h2>
-          <p class="lead">Many industrial IoT platforms encrypt data in transit but terminate encryption at the gateway or edge processor. Plaintext appears at the first aggregation point — the same box that routes, buffers, and integrates data. That widens compliance scope, concentrates insider risk, and creates audit problems that no amount of TLS can resolve.</p>
+          <p class="lead">Many industrial IoT platforms encrypt data in transit but terminate encryption at the gateway or edge processor. Plaintext appears at the first aggregation point — the same box that routes, buffers, and integrates data. That widens compliance scope, concentrates insider risk, and creates audit problems that no amount of TLS can resolve. For many EU and German buyers, this is not only a security problem but a sovereignty problem: the more systems that can see plaintext telemetry, the larger the operational, contractual, and jurisdictional exposure.</p>
         </div>
         <div class="grid-cards grid-cards--2" style="margin-top:2rem">
           <article class="card reveal"><h3>Weak device identity</h3><p>Keys generated in software, shared across platforms, or verified only at the network layer. No hardware trust root means identity can be cloned or forged without physical access.</p></article>
@@ -384,8 +377,58 @@ img{max-width:100%;height:auto}
           <li class="diff-item reveal"><span class="dash">—</span><span><strong style="color:var(--text-primary)">Built for battery-operated mesh.</strong> Thread 802.15.4 with sleepy end devices, not Wi-Fi-powered Linux boards. Real power budgets, real constrained links.</span></li>
           <li class="diff-item reveal"><span class="dash">—</span><span><strong style="color:var(--text-primary)">Two-stage verification.</strong> Signatures and anti-replay enforced at the gateway and again at the collector — independent checks, independent trust stores.</span></li>
           <li class="diff-item reveal"><span class="dash">—</span><span><strong style="color:var(--text-primary)">Hardware + transport + crypto + fleet ops.</strong> One architecture from secure element through OTA lifecycle — not four vendors stitched together.</span></li>
-          <li class="diff-item reveal" style="border-bottom:none"><span class="dash">—</span><span><strong style="color:var(--text-primary)">Sovereignty-ready.</strong> European hosting, customer-controlled environments, and deployment flexibility for regulated sectors.</span></li>
+          <li class="diff-item reveal" style="border-bottom:none"><span class="dash">—</span><span><strong style="color:var(--text-primary)">Sovereignty starts with trust boundaries.</strong> TrustKern reduces the number of systems that can see plaintext telemetry and supports customer-controlled deployment models for regulated environments.</span></li>
         </ul>
+      </div>
+    </section>
+
+    <!-- ═══ SOVEREIGNTY ═══ -->
+    <section class="section" id="sovereignty" aria-labelledby="sovereignty-heading">
+      <div class="container">
+        <div class="section-header reveal">
+          <p class="eyebrow">Sovereignty-first architecture</p>
+          <h2 id="sovereignty-heading" class="headline-lg">Designed for control over where data is visible, decrypted, and governed</h2>
+          <p class="lead">In regulated European environments, the main question is often not only whether data is encrypted, but where plaintext appears, who operates the systems that can access it, and under which legal and contractual boundaries those systems run. TrustKern is designed to reduce exposure at intermediary layers and support deployment models where decryption and storage stay inside infrastructure chosen and controlled by the customer.</p>
+        </div>
+        <div class="grid-cards grid-cards--3" style="margin-top:1rem">
+          <article class="card reveal"><h3>Minimized intermediary trust</h3><p>The gateway relays and verifies, but does not become a plaintext processing point. Fewer systems with access to sensitive data means a smaller operational, contractual, and jurisdictional footprint.</p></article>
+          <article class="card reveal"><h3>Controlled decryption boundary</h3><p>Plaintext appears only in a cloud-side boundary selected by the deployment model. Decryption scope can be aligned with audit, data residency, and contractual requirements.</p></article>
+          <article class="card reveal"><h3>Flexible hosting posture</h3><p>Suitable for EU-hosted, customer-controlled, or self-hosted environments. The core trust model does not change when the hosting model changes.</p></article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══ COMPARISON ═══ -->
+    <section class="section" style="background:var(--bg-elevated)" aria-labelledby="compare-heading">
+      <div class="container">
+        <div class="section-header section-header--center reveal">
+          <p class="eyebrow">Architecture comparison</p>
+          <h2 id="compare-heading" class="headline-lg">Typical IoT cloud vs. TrustKern</h2>
+        </div>
+        <div class="compare reveal">
+          <div class="compare__col">
+            <h3>Typical IoT cloud architecture</h3>
+            <ul>
+              <li>TLS to the gateway</li>
+              <li>Plaintext at the edge</li>
+              <li>Gateway becomes a trust concentration point</li>
+              <li>Sovereignty depends on intermediary systems</li>
+              <li>Device identity often software-based</li>
+              <li>No controlled decryption boundary</li>
+            </ul>
+          </div>
+          <div class="compare__col compare__col--highlight">
+            <h3>TrustKern architecture</h3>
+            <ul>
+              <li>Encryption on the sensor</li>
+              <li>Gateway verifies but cannot decrypt</li>
+              <li>Plaintext only in a controlled decryption boundary</li>
+              <li>Supports sovereignty-sensitive deployments</li>
+              <li>Hardware-rooted identity (ATECC608A)</li>
+              <li>Customer-controlled hosting models</li>
+            </ul>
+          </div>
+        </div>
       </div>
     </section>
 
@@ -449,7 +492,7 @@ img{max-width:100%;height:auto}
     </section>
 
     <!-- ═══ 9. INDUSTRIES ═══ -->
-    <section class="section" id="industries" aria-labelledby="industries-heading">
+    <section class="section" id="industries" style="background:var(--bg-elevated)" aria-labelledby="industries-heading">
       <div class="container">
         <div class="section-header reveal">
           <p class="eyebrow">Where it fits</p>
@@ -468,7 +511,7 @@ img{max-width:100%;height:auto}
     </section>
 
     <!-- ═══ 10. SECURITY ═══ -->
-    <section class="section" id="security" style="background:var(--bg-elevated)" aria-labelledby="security-heading">
+    <section class="section" id="security" aria-labelledby="security-heading">
       <div class="container" style="max-width:42rem">
         <div class="section-header reveal">
           <p class="eyebrow">Security &amp; governance</p>
@@ -487,38 +530,40 @@ img{max-width:100%;height:auto}
     </section>
 
     <!-- ═══ 11. DEPLOYMENT ═══ -->
-    <section class="section" id="deployment" aria-labelledby="deploy-heading">
+    <section class="section" id="deployment" style="background:var(--bg-elevated)" aria-labelledby="deploy-heading">
       <div class="container">
         <div class="section-header reveal">
           <p class="eyebrow">Deployment</p>
-          <h2 id="deploy-heading" class="headline-lg">Edge, cloud, and the boundary between them</h2>
+          <h2 id="deploy-heading" class="headline-lg">Deployment models for sovereignty-sensitive environments</h2>
+          <p class="lead">TrustKern supports deployment models where security and jurisdictional control matter at the same time. Gateway components remain outside the payload confidentiality boundary, while cloud-side ingestion and decryption can be placed in infrastructure selected by the customer. This supports EU-hosted, customer-controlled, or self-hosted operating models without changing the core trust model.</p>
         </div>
-        <div class="grid-cards grid-cards--2" style="margin-top:1rem">
-          <article class="card reveal"><h3>Edge: Raspberry Pi + OTBR</h3><p>Thread border router (otbr-agent) provides 802.15.4 ↔ IPv6 bridging. tk-gateway runs as a separate application-layer service — verify, forward, publish over MQTTS with mTLS client certs. Short-lived certificates with automatic renewal.</p></article>
-          <article class="card reveal"><h3>Cloud: Docker Compose stack</h3><p>Backend (control plane + operator auth + device registry), collector (ingestion + verification + HPKE decrypt), broker (Mosquitto mTLS), TimescaleDB, step-ca, Grafana, Prometheus, Loki. European hosting or customer-controlled deployment.</p></article>
+        <div class="grid-cards grid-cards--3" style="margin-top:1rem">
+          <article class="card reveal"><h3>EU-hosted</h3><p>Deploy cloud components in European infrastructure with controlled operational boundaries. Edge gateway on Raspberry Pi + OTBR, cloud stack via Docker Compose — backend, collector, Mosquitto, TimescaleDB, step-ca, Grafana.</p></article>
+          <article class="card reveal"><h3>Customer-controlled</h3><p>Place ingestion and decryption inside infrastructure operated or owned by the customer. The trust model stays the same — the gateway still cannot decrypt, and decryption keys remain inside your boundary.</p></article>
+          <article class="card reveal"><h3>Self-hosted</h3><p>Run the platform in private environments where data governance and operator access need tighter control. All components are containerized and designed for air-gapped or restricted-network operation.</p></article>
         </div>
       </div>
     </section>
 
     <!-- ═══ 12. CONTACT ═══ -->
-    <section class="section" id="contact" style="background:var(--bg-elevated)" aria-labelledby="contact-heading">
+    <section class="section" id="contact" aria-labelledby="contact-heading">
       <div class="container">
         <div class="section-header reveal">
           <p class="eyebrow">Get started</p>
-          <h2 id="contact-heading" class="headline-lg">See TrustKern in your context</h2>
-          <p class="lead">Architecture review, pilot planning, or integration discussion. We respond to qualified technical and procurement inquiries.</p>
+          <h2 id="contact-heading" class="headline-lg">Explore a deployment model that keeps decryption inside infrastructure you control</h2>
+          <p class="lead">Sovereignty-focused architecture walkthrough, EU and customer-controlled deployment options, or integration planning for regulated environments.</p>
         </div>
         <div class="grid-cards grid-cards--2lg" style="align-items:start">
           <div class="card reveal">
-            <h3 style="margin-top:0;font-size:1.35rem">Book a demo</h3>
-            <p>Technical walkthrough: secure element identity, Thread transport, gateway-blind path, OTA lifecycle, and deployment options.</p>
+            <h3 style="margin-top:0;font-size:1.35rem">Book a sovereignty-focused walkthrough</h3>
+            <p>Secure element identity, gateway-blind path, controlled decryption boundary, OTA lifecycle, and EU or customer-controlled deployment models.</p>
             <p style="margin-top:1.5rem"><a class="btn btn--primary btn--lg" href="mailto:info@trustkern.de?subject=Demo%20request">Request demo via email</a></p>
             <p style="margin-top:.75rem;font-size:.875rem;color:var(--text-muted)">Or reach us at <a href="mailto:info@trustkern.de">info@trustkern.de</a></p>
           </div>
           <div class="reveal">
             <h3 style="font-size:1.35rem">Talk to us</h3>
             <p style="color:var(--text-muted);font-size:.9375rem">For partnerships, procurement, and media inquiries.</p>
-            <p style="margin-top:1.5rem;font-size:.9375rem;color:var(--text-secondary)"><strong style="color:var(--text-primary)">Engineering &amp; security teams:</strong> Structured context helps — threat model, target regions, integration constraints, fleet size.</p>
+            <p style="margin-top:1.5rem;font-size:.9375rem;color:var(--text-secondary)"><strong style="color:var(--text-primary)">Engineering &amp; security teams:</strong> Structured context helps — threat model, target regions, sovereignty requirements, integration constraints, fleet size.</p>
             <p style="margin-top:1rem"><a class="btn btn--ghost" href="#architecture">Review architecture first →</a></p>
           </div>
         </div>
@@ -529,11 +574,11 @@ img{max-width:100%;height:auto}
     <section class="section" aria-labelledby="cta-heading">
       <div class="container">
         <div class="cta-band reveal">
-          <h2 id="cta-heading" class="headline-md">Secure element to cloud. No plaintext at the gateway.</h2>
-          <p class="lead">Book a walkthrough or explore the architecture of hardware-rooted, gateway-blind industrial IoT.</p>
+          <h2 id="cta-heading" class="headline-md">Secure element to cloud. No plaintext at the gateway. Decryption inside your boundary.</h2>
+          <p class="lead">See how TrustKern fits regulated environments with EU-hosted, customer-controlled, or self-hosted deployment.</p>
           <div class="cta-band__actions">
-            <a class="btn btn--primary btn--lg" href="#contact">Book a demo</a>
-            <a class="btn btn--ghost btn--lg" href="#architecture">See architecture</a>
+            <a class="btn btn--primary btn--lg" href="#contact">Book a walkthrough</a>
+            <a class="btn btn--ghost btn--lg" href="#sovereignty">Sovereignty &amp; deployment</a>
           </div>
         </div>
       </div>
@@ -550,7 +595,7 @@ img{max-width:100%;height:auto}
       </div>
       <div>
         <p style="font-size:.75rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--text-muted);margin:0 0 1rem">Navigate</p>
-        <ul class="footer-nav"><li><a href="#architecture">Architecture</a></li><li><a href="#industries">Use cases</a></li><li><a href="#security">Security</a></li><li><a href="#contact">Contact</a></li></ul>
+        <ul class="footer-nav"><li><a href="#architecture">Architecture</a></li><li><a href="#sovereignty">Sovereignty</a></li><li><a href="#industries">Use cases</a></li><li><a href="#security">Security</a></li><li><a href="#contact">Contact</a></li></ul>
       </div>
       <div>
         <p style="font-size:.75rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--text-muted);margin:0 0 1rem">Legal</p>
