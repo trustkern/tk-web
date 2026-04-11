@@ -944,7 +944,7 @@ img{max-width:100%;height:auto}
   <footer class="site-footer" role="contentinfo">
     <div class="container site-footer__grid">
       <div class="site-footer__brand">
-        <a class="logo" href="#"><img class="logo__mark" src="assets/favicon-32.png" alt="" width="30" height="30">Trust<span>kern</span></a>
+        <a class="logo" href="#"><img class="logo__mark" src="assets/logo-512.png" alt="" width="30" height="30">Trust<span>kern</span></a>
         <p style="margin-top:.5rem;font-size:.8125rem;color:var(--text-muted);font-style:italic;letter-spacing:.03em">Secure infrastructure for industrial IoT, from device to cloud.</p>
         <p>Hardware-rooted identity and gateway-blind encrypted telemetry over Thread mesh — from sensor to cloud.</p>
       </div>
@@ -954,10 +954,10 @@ img{max-width:100%;height:auto}
       </div>
       <div>
         <p style="font-size:.75rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--text-muted);margin:0 0 1rem">Legal</p>
-        <ul class="footer-nav"><li><a href="#">Imprint</a></li><li><a href="#">Privacy Policy</a></li></ul>
+        <ul class="footer-nav"><li><a href="imprint.html">Impressum</a></li><li><a href="privacy.html">Privacy Policy</a></li><li><a href="#" onclick="if(window.klaro){klaro.show();} return false;">Cookie Settings</a></li></ul>
       </div>
     </div>
-    <div class="container footer-legal"><span>&copy; TrustKern</span></div>
+    <div class="container footer-legal"><span>&copy; TrustKern — a product of Eitan &amp; Meir GmbH</span></div>
   </footer>
 
   <script>
@@ -967,5 +967,7 @@ img{max-width:100%;height:auto}
   if(!window.matchMedia("(prefers-reduced-motion:reduce)").matches){var r=document.querySelectorAll(".reveal");if(r.length&&"IntersectionObserver"in window){var io=new IntersectionObserver(function(e){e.forEach(function(en){if(en.isIntersecting){en.target.classList.add("is-visible");io.unobserve(en.target)}})},{rootMargin:"0px 0px -8% 0px",threshold:.05});r.forEach(function(el){io.observe(el)})}else{r.forEach(function(el){el.classList.add("is-visible")})}}else{document.querySelectorAll(".reveal").forEach(function(el){el.classList.add("is-visible")})}
 })();
   </script>
+  <script defer type="application/javascript" src="klaro-config.js"></script>
+  <script defer data-config="klaroConfig" type="application/javascript" src="https://cdn.kiprotect.com/klaro/v0.7/klaro.js"></script>
 </body>
 </html>
