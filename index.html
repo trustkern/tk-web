@@ -114,7 +114,7 @@ img{max-width:100%;height:auto}
 .btn--lg{padding:.85rem 1.75rem;font-size:1rem}
 .menu-toggle{display:flex;flex-direction:column;gap:5px;background:none;border:none;padding:.5rem;cursor:pointer}@media(min-width:900px){.menu-toggle{display:none}}
 .menu-toggle span{display:block;width:22px;height:2px;background:var(--text-secondary)}
-.mobile-nav{display:none;position:fixed;inset:var(--header-h) 0 0 0;background:var(--bg-deep);padding:2rem;flex-direction:column;gap:1rem;z-index:99;border-top:1px solid var(--border-subtle)}.mobile-nav.is-open{display:flex}
+.mobile-nav{display:none;position:fixed;inset:var(--header-h) 0 0 0;background:#ffffff;padding:2rem;flex-direction:column;gap:1rem;z-index:101;border-top:1px solid var(--border-subtle);overflow-y:auto;-webkit-overflow-scrolling:touch}.mobile-nav.is-open{display:flex}
 .mobile-nav a{color:var(--text-secondary);font-size:1.125rem;padding:.5rem 0}
 .eyebrow{font-size:.75rem;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--accent);margin-bottom:var(--space-sm)}
 .headline-xl{font-size:clamp(2rem,5vw,3.25rem)}
@@ -187,11 +187,11 @@ img{max-width:100%;height:auto}
       </nav>
       <button type="button" class="menu-toggle" aria-expanded="false" aria-controls="mobile-menu" aria-label="Open menu"><span></span><span></span><span></span></button>
     </div>
-    <nav id="mobile-menu" class="mobile-nav" aria-label="Mobile">
-      <a href="#architecture">Architecture</a><a href="#sovereignty">Sovereignty</a><a href="#industries">Use cases</a><a href="#security">Security</a><a href="#contact">Contact</a>
-      <a class="btn btn--primary" href="#contact" style="margin-top:1rem;text-align:center">Book a demo</a>
-    </nav>
   </header>
+  <nav id="mobile-menu" class="mobile-nav" aria-label="Mobile">
+    <a href="#architecture">Architecture</a><a href="#sovereignty">Sovereignty</a><a href="#industries">Use cases</a><a href="#security">Security</a><a href="#contact">Contact</a>
+ 
+  </nav>
 
   <main id="main">
 
